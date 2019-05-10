@@ -37,7 +37,7 @@ use ethcore::CreateContractAddress;
 use ethcore::client::BlockChainClient;
 use ethcore::executive::contract_address;
 use ethcore::miner::Miner;
-use ethcore::test_helpers::{generate_dummy_client, push_block_with_transactions};
+use ethcore::test_helpers::{generate_dummy_client, push_block_with_transactions, new_db};
 use ethcore::spec;
 use ethkey::{Secret, KeyPair, Signature};
 use hash::keccak;
@@ -66,6 +66,7 @@ fn private_contract() {
 	let io = ethcore_io::IoChannel::disconnected();
 	let miner = Arc::new(Miner::new_for_tests(&spec::new_test(), None));
 	let private_keys = Arc::new(StoringKeyProvider::default());
+	let db = new_db();
 	let pm = Arc::new(Provider::new(
 			client.clone(),
 			miner,
@@ -74,6 +75,7 @@ fn private_contract() {
 			config,
 			io,
 			private_keys,
+			db.key_value().clone(),
 	));
 
 	let (address, _) = contract_address(CreateContractAddress::FromSenderAndNonce, &key1.address(), &0.into(), &[]);
@@ -201,6 +203,7 @@ fn call_other_private_contract() {
 	let io = ethcore_io::IoChannel::disconnected();
 	let miner = Arc::new(Miner::new_for_tests(&spec::new_test(), None));
 	let private_keys = Arc::new(StoringKeyProvider::default());
+	let db = new_db();
 	let pm = Arc::new(Provider::new(
 			client.clone(),
 			miner,
@@ -209,6 +212,7 @@ fn call_other_private_contract() {
 			config,
 			io,
 			private_keys.clone(),
+			db.key_value().clone(),
 	));
 
 	// Deploy contract A
