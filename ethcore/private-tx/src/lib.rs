@@ -140,6 +140,8 @@ pub struct ProviderConfig {
 	pub signer_account: Option<Address>,
 	/// Path to private tx logs
 	pub logs_path: Option<String>,
+	/// Provider should store the state of the private contract offchain (in DB)
+	pub use_offchain_storage: bool,
 }
 
 #[derive(Debug)]
@@ -239,7 +241,7 @@ impl Provider {
 			channel,
 			keys_provider,
 			logging: config.logs_path.map(|path| Logging::new(Arc::new(FileLogsSerializer::with_path(path)))),
-			use_offchain_storage: false,
+			use_offchain_storage: config.use_offchain_storage,
 			state_storage: PrivateStateStorage::new(db),
 		}
 	}

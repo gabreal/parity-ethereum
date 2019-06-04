@@ -61,6 +61,7 @@ fn private_contract() {
 		validator_accounts: vec![key3.address(), key4.address()],
 		signer_account: None,
 		logs_path: None,
+		use_offchain_storage: false,
 	};
 
 	let io = ethcore_io::IoChannel::disconnected();
@@ -198,6 +199,7 @@ fn call_other_private_contract() {
 		validator_accounts: vec![key3.address(), key4.address()],
 		signer_account: None,
 		logs_path: None,
+		use_offchain_storage: false,
 	};
 
 	let io = ethcore_io::IoChannel::disconnected();
