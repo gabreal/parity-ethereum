@@ -690,7 +690,7 @@ mod tests {
 		let mut chain = TestBlockChainClient::new();
 		let snapshot_service = TestSnapshotService::new();
 		let queue = RwLock::new(VecDeque::new());
-		let mut io = TestIo::new(&mut chain, &snapshot_service, &queue, None);
+		let mut io = TestIo::new(&mut chain, &snapshot_service, &queue, None, None);
 
 		// Valid headers sequence.
 		let valid_headers = [
@@ -756,7 +756,7 @@ mod tests {
 		let mut chain = TestBlockChainClient::new();
 		let snapshot_service = TestSnapshotService::new();
 		let queue = RwLock::new(VecDeque::new());
-		let mut io = TestIo::new(&mut chain, &snapshot_service, &queue, None);
+		let mut io = TestIo::new(&mut chain, &snapshot_service, &queue, None, None);
 
 		let mut headers = Vec::with_capacity(3);
 		let parent_hash = H256::random();
@@ -806,7 +806,7 @@ mod tests {
 		let mut chain = TestBlockChainClient::new();
 		let snapshot_service = TestSnapshotService::new();
 		let queue = RwLock::new(VecDeque::new());
-		let mut io = TestIo::new(&mut chain, &snapshot_service, &queue, None);
+		let mut io = TestIo::new(&mut chain, &snapshot_service, &queue, None, None);
 
 		// Import block headers.
 		let mut headers = Vec::with_capacity(4);
@@ -874,7 +874,7 @@ mod tests {
 		let mut chain = TestBlockChainClient::new();
 		let snapshot_service = TestSnapshotService::new();
 		let queue = RwLock::new(VecDeque::new());
-		let mut io = TestIo::new(&mut chain, &snapshot_service, &queue, None);
+		let mut io = TestIo::new(&mut chain, &snapshot_service, &queue, None, None);
 
 		// Import block headers.
 		let mut headers = Vec::with_capacity(4);
@@ -939,7 +939,7 @@ mod tests {
 		let mut chain = TestBlockChainClient::new();
 		let snapshot_service = TestSnapshotService::new();
 		let queue = RwLock::new(VecDeque::new());
-		let mut io = TestIo::new(&mut chain, &snapshot_service, &queue, None);
+		let mut io = TestIo::new(&mut chain, &snapshot_service, &queue, None, None);
 
 		let heads = [
 			spec.genesis_header(),
@@ -979,7 +979,7 @@ mod tests {
 		let mut chain = TestBlockChainClient::new();
 		let snapshot_service = TestSnapshotService::new();
 		let queue = RwLock::new(VecDeque::new());
-		let mut io = TestIo::new(&mut chain, &snapshot_service, &queue, None);
+		let mut io = TestIo::new(&mut chain, &snapshot_service, &queue, None, None);
 
 		let heads = [
 			spec.genesis_header()
