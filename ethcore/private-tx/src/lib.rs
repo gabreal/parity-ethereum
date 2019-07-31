@@ -210,7 +210,7 @@ pub struct Provider {
 	accounts: Arc<Signer>,
 	channel: IoChannel<ClientIoMessage>,
 	keys_provider: Arc<KeyProvider>,
-	logging: Option<Logging>,
+	logging: Option<Arc<Logging>>,
 	use_offchain_storage: bool,
 	state_storage: PrivateStateStorage,
 }
@@ -236,6 +236,7 @@ impl Provider {
 		db: Arc<KeyValueDB>,
 	) -> Self {
 		keys_provider.update_acl_contract();
+		let logging = config.logs_path.map(|path| Arc::new(Logging::new(Arc::new(FileLogsSerializer::with_path(path)))));
 		Provider {
 			encryptor,
 			validator_accounts: config.validator_accounts.into_iter().collect(),
@@ -248,9 +249,9 @@ impl Provider {
 			accounts,
 			channel,
 			keys_provider,
-			logging: config.logs_path.map(|path| Logging::new(Arc::new(FileLogsSerializer::with_path(path)))),
+			logging: logging.clone(),
 			use_offchain_storage: config.use_offchain_storage,
-			state_storage: PrivateStateStorage::new(db),
+			state_storage: PrivateStateStorage::new(db, logging),
 		}
 	}
 
